@@ -6,8 +6,8 @@ abstract class ImageObject(
     val image: Bitmap,
     val rowCount: Int,
     val colCount: Int,
-    val x: Int,
-    val y: Int ) {
+    var x: Int,
+    var y: Int ) {
 
     var imageWidth : Int = 0
     var imageHeight : Int = 0
