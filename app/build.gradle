@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.eesolutions.jeux.lovefinder"
-        minSdk 26
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -51,4 +51,5 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
 }

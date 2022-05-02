@@ -6,10 +6,17 @@ import android.graphics.Canvas
 class BoyCharacter(
     val surfaceWidth: Int,
     val surfaceHeight: Int,
-    image: Bitmap,
+    val objectWidth : Int,
+    val objectHeight : Int,
+//    image: Bitmap,
     x: Int,
     y: Int
-) : ImageObject(image, 4, 3, x, y) {
+) : ImageObject(
+//    image,
+    4,
+    3,
+    x,
+    y) {
 
     companion object {
         private const val ROW_TOP_TO_BOTTOM = 0
@@ -30,20 +37,27 @@ class BoyCharacter(
     // Velocity of character (pixel/millisecond)
     val VELOCITY = 0.1f
 
-    private var movingVectorX = 10
-    private var movingVectorY = 5
+    var movingVectorX = 10
+    var movingVectorY = 5
 
     private var lastDrawNanoTime: Long = -1
 
     init {
-        for (col in (1..colCount)) {
-            topToBottoms[col - 1] = cropSubImage(ROW_TOP_TO_BOTTOM, col - 1)
-            rightToLefts[col - 1] = cropSubImage(ROW_RIGHT_TO_LEFT, col - 1)
-            leftToRights[col - 1] = cropSubImage(ROW_LEFT_TO_RIGHT, col - 1)
-            bottomToTops[col - 1] = cropSubImage(ROW_BOTTOM_TO_TOP, col - 1)
-        }
+//        for (col in (1..colCount)) {
+//            topToBottoms[col - 1] = cropSubImage(ROW_TOP_TO_BOTTOM, col - 1)
+//            rightToLefts[col - 1] = cropSubImage(ROW_RIGHT_TO_LEFT, col - 1)
+//            leftToRights[col - 1] = cropSubImage(ROW_LEFT_TO_RIGHT, col - 1)
+//            bottomToTops[col - 1] = cropSubImage(ROW_BOTTOM_TO_TOP, col - 1)
+//        }
     }
 
+    fun inverseX () {
+        movingVectorX *= -1
+    }
+
+    fun inverseY () {
+        movingVectorY *= -1
+    }
     private fun getCurrentImage() : Bitmap {
         when (currentRow) {
             ROW_TOP_TO_BOTTOM -> return topToBottoms[currentCol]
@@ -54,7 +68,12 @@ class BoyCharacter(
         }
     }
 
-    private fun moveOneStep() {
+    public fun move() {
+        x = x + 20
+        y = y + 20
+    }
+
+    public fun moveOneStep() {
         this.currentCol++
         if (currentCol >= colCount) {
             this.currentCol = 0
@@ -71,6 +90,7 @@ class BoyCharacter(
 
         // Change nanoseconds to milliseconds (1 nanosecond = 1000000 milliseconds).
         val deltaTime = ((now - lastDrawNanoTime) / 1000000).toInt()
+//        val deltaTime = 100
 
         // Distance moves
         val distance = VELOCITY * deltaTime
@@ -123,9 +143,9 @@ class BoyCharacter(
         }
     }
 
-    fun draw(canvas: Canvas) {
-        val image: Bitmap = this.getCurrentImage()
-        canvas.drawBitmap(image, x.toFloat(), y.toFloat(), null)
+    fun draw(canvas: Canvas?) {
+//        val image: Bitmap = this.getCurrentImage()
+//        canvas.drawBitmap(image, x.toFloat(), y.toFloat(), null)
         // Last draw time.
         lastDrawNanoTime = System.nanoTime()
     }
