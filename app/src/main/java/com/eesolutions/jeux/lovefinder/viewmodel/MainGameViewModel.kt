@@ -6,13 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
+import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainGameViewModel : ViewModel() {
     private val _boyCharacter = MutableLiveData<BoyCharacter>()
+    private val _girlCharaterList = MutableLiveData<MutableList<GirlCharater>>()
 
     public val boyCharacter : LiveData<BoyCharacter> = _boyCharacter
+    public val girlCharaterList : LiveData<MutableList<GirlCharater>> = _girlCharaterList
 
     public var running = false
 
@@ -20,14 +23,19 @@ class MainGameViewModel : ViewModel() {
         viewModelScope.launch {
             var startTime = System.nanoTime()
             var waitTime : Long
-            var counter : Int = 0
-            while (running && counter < 1000) {
-                counter++
+            while (running
+            ) {
                 // update state of game objects here
+                    // boy
                 _boyCharacter.value?.moveOneStep()
-
-
                 _boyCharacter.value = _boyCharacter.value
+
+                // girls
+                _girlCharaterList.value?.forEach {
+                    it.moveOneStep()
+                }
+                _girlCharaterList.value = _girlCharaterList.value
+
 
                 // wait an interval to refresh game screen
                 waitTime = (System.nanoTime() - startTime)/1000000
@@ -41,13 +49,21 @@ class MainGameViewModel : ViewModel() {
         }
     }
 
-    public fun setBoyCharacter(charater : BoyCharacter) {
+    public fun initBoyCharacter(charater : BoyCharacter) {
         _boyCharacter.value = charater
     }
 
-    public fun inverse () {
-        _boyCharacter.value?.inverseX()
-        _boyCharacter.value = _boyCharacter.value
+    public fun initGrilCharacters(girlCharaters: List<GirlCharater>) {
+        _girlCharaterList.value = girlCharaters.toMutableList()
+    }
+
+    fun changeDirectionOnCharacter(x: Int, y: Int) : Boolean {
+        Log.d("App", "Event Click [x,y] = [${x},${y}]")
+
+        val movingVectorX = x - _boyCharacter.value!!.x
+        val movingVectorY = y - _boyCharacter.value!!.y
+        _boyCharacter.value!!.setMovingVector(movingVectorX, movingVectorY)
+        return true
     }
 
 
