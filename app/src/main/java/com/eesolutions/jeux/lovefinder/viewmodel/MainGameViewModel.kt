@@ -7,19 +7,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
 import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
+import com.eesolutions.jeux.lovefinder.game.model.MatchObject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainGameViewModel : ViewModel() {
     private val _boyCharacter = MutableLiveData<BoyCharacter>()
     private val _girlCharaterList = MutableLiveData<MutableList<GirlCharater>>()
+    private val _matchObject = MutableLiveData<MatchObject>()
+    val boyCharacter : LiveData<BoyCharacter> = _boyCharacter
+    val girlCharaterList : LiveData<MutableList<GirlCharater>> = _girlCharaterList
+    val matchObject : LiveData<MatchObject> = _matchObject
 
-    public val boyCharacter : LiveData<BoyCharacter> = _boyCharacter
-    public val girlCharaterList : LiveData<MutableList<GirlCharater>> = _girlCharaterList
+    var running = false
 
-    public var running = false
-
-    public fun start() {
+    fun start() {
         viewModelScope.launch {
             var startTime = System.nanoTime()
             var waitTime : Long
@@ -36,12 +38,26 @@ class MainGameViewModel : ViewModel() {
                 }
                 _girlCharaterList.value = _girlCharaterList.value
 
+                // check match
+                if (_matchObject.value!!.isFinish()) {
+                    val matchedGirls = _boyCharacter.value!!.findMatch(_girlCharaterList.value!!)
+                    if (!matchedGirls?.isEmpty()) {
+                        // start match
+                        _matchObject.value!!.start()
+                        _matchObject.value?.x = _boyCharacter.value!!.x
+                        _matchObject.value?.y = _boyCharacter.value!!.y
+                    }
+                } else {
+                    _matchObject.value!!.animate()
+                    _matchObject.value = _matchObject.value
+                }
+
 
                 // wait an interval to refresh game screen
                 waitTime = (System.nanoTime() - startTime)/1000000
-                waitTime = if (waitTime < 10)  10 else waitTime
+                waitTime = if (waitTime < 100)  100 else waitTime
 
-                delay(100)
+                delay(waitTime)
                 Log.d("App", "[x,y] = [${_boyCharacter.value?.x},${_boyCharacter.value?.y}]")
                 startTime = System.nanoTime()
 
@@ -49,11 +65,11 @@ class MainGameViewModel : ViewModel() {
         }
     }
 
-    public fun initBoyCharacter(charater : BoyCharacter) {
+    fun initBoyCharacter(charater : BoyCharacter) {
         _boyCharacter.value = charater
     }
 
-    public fun initGrilCharacters(girlCharaters: List<GirlCharater>) {
+    fun initGrilCharacters(girlCharaters: List<GirlCharater>) {
         _girlCharaterList.value = girlCharaters.toMutableList()
     }
 
@@ -64,6 +80,10 @@ class MainGameViewModel : ViewModel() {
         val movingVectorY = y - _boyCharacter.value!!.y
         _boyCharacter.value!!.setMovingVector(movingVectorX, movingVectorY)
         return true
+    }
+
+    fun initMatchObject(matchObject: MatchObject) {
+        _matchObject.value = matchObject
     }
 
 

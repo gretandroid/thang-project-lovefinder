@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.eesolutions.jeux.lovefinder.databinding.FragmentMainGameBinding
 import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
 import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
+import com.eesolutions.jeux.lovefinder.game.model.MatchObject
 import com.eesolutions.jeux.lovefinder.viewmodel.MainGameViewModel
 
 class MainGameFragment : Fragment() {
@@ -57,6 +58,14 @@ class MainGameFragment : Fragment() {
             }
         }
 
+        if (viewModel.matchObject.value === null) {
+            with(binding) {
+                matchImageView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                viewModel.initMatchObject(MatchObject(300, 500))
+                matchImageView.visibility = View.INVISIBLE
+            }
+        }
+
         // subcribe observe for boy character
         viewModel.boyCharacter.observe(this.viewLifecycleOwner) {
                 boyCharacter ->
@@ -99,6 +108,31 @@ class MainGameFragment : Fragment() {
                         }
                         .start()
                     it.checkPoint();
+                }
+            }
+        }
+
+        // subcribe observe for match object
+        viewModel.matchObject.observe(this.viewLifecycleOwner) {
+            matchObject ->
+            with(binding) {
+                if (!matchObject.isFinish()) {
+                    matchImageView.setImageResource(matchObject.getCurrentImage())
+                    matchImageView.visibility = View.VISIBLE
+                    matchImageView.animate()
+                        .x(matchObject.x.toFloat())
+                        .y(matchObject.y.toFloat())
+                        .setDuration(10)
+                        .withEndAction {
+                            //to make sure that it arrives,
+                            //but not needed actually these two lines
+//                        boyImageView.x = boyCharacter.x.toFloat()
+//                        boyImageView.y = boyCharacter.y.toFloat()
+                        }
+                        .start()
+                }
+                else {
+                    matchImageView.visibility = View.GONE
                 }
             }
         }

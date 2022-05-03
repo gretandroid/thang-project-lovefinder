@@ -1,8 +1,5 @@
 package com.eesolutions.jeux.lovefinder.game.model
 
-import android.graphics.Canvas
-import com.eesolutions.jeux.lovefinder.R
-
 abstract class Charater(
     val surfaceWidth: Int,
     val surfaceHeight: Int,
@@ -12,8 +9,7 @@ abstract class Charater(
     y: Int,
     var movingVectorX: Int = 10,
     var movingVectorY: Int = 5
-) : ImageObject(
-//    image,
+) : BaseObject(
     4,
     3,
     x,
