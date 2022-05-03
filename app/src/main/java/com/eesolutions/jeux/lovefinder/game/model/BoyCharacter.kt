@@ -6,6 +6,7 @@ import com.eesolutions.jeux.lovefinder.R
 import java.lang.Math.abs
 
 class BoyCharacter(
+    var score : Int,
     surfaceWidth: Int,
     surfaceHeight: Int,
     objectWidth: Int,
@@ -34,6 +35,10 @@ class BoyCharacter(
             kotlin.math.abs(x - it.x) < perimeter
                     && kotlin.math.abs(y - it.y) < perimeter}
         return result
+    }
+
+    fun increaseScore() {
+        score++
     }
 
 

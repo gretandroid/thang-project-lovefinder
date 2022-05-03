@@ -15,9 +15,12 @@ class MainGameViewModel : ViewModel() {
     private val _boyCharacter = MutableLiveData<BoyCharacter>()
     private val _girlCharaterList = MutableLiveData<MutableList<GirlCharater>>()
     private val _matchObject = MutableLiveData<MatchObject>()
+    private val _score = MutableLiveData<Int>()
+
     val boyCharacter : LiveData<BoyCharacter> = _boyCharacter
     val girlCharaterList : LiveData<MutableList<GirlCharater>> = _girlCharaterList
     val matchObject : LiveData<MatchObject> = _matchObject
+    val score : LiveData<Int> = _score
 
     var running = false
 
@@ -46,6 +49,20 @@ class MainGameViewModel : ViewModel() {
                         _matchObject.value!!.start()
                         _matchObject.value?.x = _boyCharacter.value!!.x
                         _matchObject.value?.y = _boyCharacter.value!!.y
+                        // increase score
+                        _boyCharacter.value?.increaseScore()
+                        _score.value = _boyCharacter.value!!.score
+
+                        // spawn new girl at the center of screen
+                        // check if not enough girl => spawn
+                        matchedGirls.forEach {
+                            it.x = it.surfaceWidth/2
+                            it.y = it.surfaceHeight/2
+                            it.movingVectorX = (-15..10).random()
+                            it.movingVectorY = (-12..20).random()
+                        }
+
+                        _girlCharaterList.value = _girlCharaterList.value
                     }
                 } else {
                     _matchObject.value!!.animate()
@@ -58,7 +75,7 @@ class MainGameViewModel : ViewModel() {
                 waitTime = if (waitTime < 100)  100 else waitTime
 
                 delay(waitTime)
-                Log.d("App", "[x,y] = [${_boyCharacter.value?.x},${_boyCharacter.value?.y}]")
+//                Log.d("App", "[x,y] = [${_boyCharacter.value?.x},${_boyCharacter.value?.y}]")
                 startTime = System.nanoTime()
 
             }

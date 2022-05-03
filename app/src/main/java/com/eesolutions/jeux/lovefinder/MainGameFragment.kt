@@ -39,7 +39,7 @@ class MainGameFragment : Fragment() {
         if (viewModel.boyCharacter.value === null) {
             with(binding) {
                 boyImageView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                viewModel.initBoyCharacter(BoyCharacter(width!!, height!!, boyImageView.measuredWidth, boyImageView.measuredHeight,width!!/2, height!!/2))
+                viewModel.initBoyCharacter(BoyCharacter(0, width!!, height!!, boyImageView.measuredWidth, boyImageView.measuredHeight,width!!/2, height!!/2))
             }
         }
 
@@ -71,7 +71,7 @@ class MainGameFragment : Fragment() {
                 boyCharacter ->
             // moving corrsponding boyViewImage
             with (binding) {
-                Log.d("App", "observed [x,y] = [${boyCharacter?.x},${boyCharacter?.y}]")
+//                Log.d("App", "observed [x,y] = [${boyCharacter?.x},${boyCharacter?.y}]")
                 boyImageView.setImageResource(boyCharacter.getCurrentImage())
                 boyImageView.animate()
                     .x(boyCharacter.x.toFloat())
@@ -95,19 +95,24 @@ class MainGameFragment : Fragment() {
             with(binding) {
                 girlList.forEach {
                     currentGirlImageView = girlImageViews[girlList.indexOf(it)]
-                    currentGirlImageView.setImageResource(it.getCurrentImage())
-                    currentGirlImageView.animate()
-                        .x(it.x.toFloat())
-                        .y(it.y.toFloat())
-                        .setDuration(10)
-                        .withEndAction {
-                            //to make sure that it arrives,
-                            //but not needed actually these two lines
+                    if (currentGirlImageView !== null) {
+                        currentGirlImageView.setImageResource(it.getCurrentImage())
+                        currentGirlImageView.animate()
+                            .x(it.x.toFloat())
+                            .y(it.y.toFloat())
+                            .setDuration(10)
+                            .withEndAction {
+                                //to make sure that it arrives,
+                                //but not needed actually these two lines
 //                            currentGirlImageView.x = it.x.toFloat()
 //                            currentGirlImageView.y = it.y.toFloat()
-                        }
-                        .start()
-                    it.checkPoint();
+                            }
+                            .start()
+                        it.checkPoint();
+                    }
+                    else {
+
+                    }
                 }
             }
         }
@@ -135,6 +140,11 @@ class MainGameFragment : Fragment() {
                     matchImageView.visibility = View.GONE
                 }
             }
+        }
+
+        // subcribe observe for score
+        viewModel.score.observe(this.viewLifecycleOwner) {
+            binding.scoreTextView.setText("$it")
         }
 
         if (!viewModel.running) {
