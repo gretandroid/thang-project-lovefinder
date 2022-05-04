@@ -8,7 +8,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.eesolutions.jeux.lovefinder.game.util.SettingHelper
-
+// this game is simulated the game in this tutorial
+// https://o7planning.org/10521/android-2d-game-tutorial-for-beginners#a1815857
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

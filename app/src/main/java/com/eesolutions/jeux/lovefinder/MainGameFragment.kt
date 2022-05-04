@@ -143,9 +143,9 @@ class MainGameFragment : Fragment() {
         }
 
         // subcribe observe for score
-        viewModel.score.observe(this.viewLifecycleOwner) {
-            binding.scoreTextView.setText("$it")
-        }
+//        viewModel.score.observe(this.viewLifecycleOwner) {
+//            binding.scoreTextView.setText("$it")
+//        }
 
         if (!viewModel.running) {
             viewModel.running = true
@@ -162,6 +162,11 @@ class MainGameFragment : Fragment() {
                 else -> false
             }
         }
+
+        // init variable model for data binding
+        binding.model = viewModel
+        binding.lifecycleOwner = this
+
         return binding.root
     }
 
