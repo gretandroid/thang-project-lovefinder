@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/mainGameFragment">
+    app:startDestination="@id/landPageFragment">
 
     <fragment
         android:id="@+id/mainGameFragment"
         android:name="com.eesolutions.jeux.lovefinder.MainGameFragment"
         android:label="fragment_main_game"
         tools:layout="@layout/fragment_main_game" />
+    <fragment
+        android:id="@+id/landPageFragment"
+        android:name="com.eesolutions.jeux.lovefinder.LandPageFragment"
+        android:label="fragment_land_page"
+        tools:layout="@layout/fragment_land_page" >
+        <action
+            android:id="@+id/action_landPageFragment_to_mainGameFragment"
+            app:destination="@id/mainGameFragment" />
+    </fragment>
 </navigation>

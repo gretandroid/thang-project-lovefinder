@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rowLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#5A2196F3"
+    android:padding="20dp">
+    <TextView
+        android:id="@+id/orderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:hint="order"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#E91E63" />
+
+    <TextView
+        android:id="@+id/loginTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:hint="login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#E91E63" />
+</LinearLayout>
