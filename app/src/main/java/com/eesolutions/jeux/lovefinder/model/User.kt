@@ -8,4 +8,5 @@ data class User(
     var id : Int,
     val deviceId: String,
     val login: String,
-    var password: String) : Parcelable
+    var password: String,
+    var score: Int) : Parcelable

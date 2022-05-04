@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eesolutions.jeux.lovefinder.model.User
 import com.eesolutions.jeux.lovefinder.webservice.RetrofitInstance
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LandPageViewModel : ViewModel() {
@@ -24,10 +25,12 @@ class LandPageViewModel : ViewModel() {
     init {
         fetchAllUsers()
     }
-    fun fetchAllUsers() {
+    private fun fetchAllUsers() {
         viewModelScope.launch {
             _isVisible.value = true;
             try {
+                delay(2000)
+                Log.d("App", "Call getAll")
                 val articles = RetrofitInstance.userDao.getAll();
                 Log.d("App", articles.toString())
                 _userList.value = articles
@@ -35,7 +38,7 @@ class LandPageViewModel : ViewModel() {
                 Log.d("App", e.toString());
                 _error.value = e.toString()
             } finally {
-                Thread.sleep(5000)
+//                delay(1000)
                 _isVisible.value = false
             }
         }

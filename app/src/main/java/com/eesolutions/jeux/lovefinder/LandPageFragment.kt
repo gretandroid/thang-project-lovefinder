@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eesolutions.jeux.lovefinder.databinding.FragmentLandPageBinding
@@ -42,7 +43,7 @@ class LandPageFragment : Fragment(), UserAdapter.UserAdapterListener {
         // subcribe update UI
         viewModel.userList.observe(this.viewLifecycleOwner) { users ->
             userList.clear();
-            userList.addAll(users);
+            userList.addAll(users.sortedByDescending { it.score });
 
             // make recycler view visible
             if (!userList.isEmpty()) {
@@ -59,6 +60,7 @@ class LandPageFragment : Fragment(), UserAdapter.UserAdapterListener {
         }
         viewModel.error.observe(this.viewLifecycleOwner) { message ->
             binding.errorTextView?.setText(message);
+            binding.errorTextView?.visibility = View.VISIBLE;
         }
         viewModel.isVisible.observe(this.viewLifecycleOwner) { visible ->
             if (visible) {
@@ -76,7 +78,9 @@ class LandPageFragment : Fragment(), UserAdapter.UserAdapterListener {
     }
 
     override fun onClick(view: View?, user: User?) {
-        TODO("Not yet implemented")
+//        Navigation
+//            .findNavController(binding.root)
+//            .navigate()
     }
 
 }
