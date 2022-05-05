@@ -1,7 +1,6 @@
-package com.eesolutions.jeux.lovefinder
+package com.eesolutions.jeux.lovefinder.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -14,6 +13,7 @@ import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
 import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
 import com.eesolutions.jeux.lovefinder.game.model.MatchObject
 import com.eesolutions.jeux.lovefinder.viewmodel.MainGameViewModel
+import com.eesolutions.jeux.lovefinder.viewmodel.StartGameViewModel
 
 class MainGameFragment : Fragment() {
     private lateinit var binding: FragmentMainGameBinding
@@ -29,6 +29,8 @@ class MainGameFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentMainGameBinding.inflate(layoutInflater, container, false)
+
+        val args = MainGameFragmentArgs.fromBundle(requireArguments())
 
         // init view model
         viewModel = ViewModelProvider(this).get(MainGameViewModel::class.java)
@@ -142,11 +144,6 @@ class MainGameFragment : Fragment() {
             }
         }
 
-        // subcribe observe for score
-//        viewModel.score.observe(this.viewLifecycleOwner) {
-//            binding.scoreTextView.setText("$it")
-//        }
-
         if (!viewModel.running) {
             viewModel.running = true
             viewModel.start()
@@ -154,7 +151,7 @@ class MainGameFragment : Fragment() {
 
 
         binding.mainGameLayout.setOnTouchListener { view, motionEvent ->
-            Log.d("App", "Event Click on listener [x,y] = [${motionEvent.x},${motionEvent.y}]")
+//            Log.d("App", "Event Click on listener [x,y] = [${motionEvent.x},${motionEvent.y}]")
 
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN ->
@@ -166,6 +163,11 @@ class MainGameFragment : Fragment() {
         // init variable model for data binding
         binding.model = viewModel
         binding.lifecycleOwner = this
+
+        // init data
+
+        viewModel.onMessageReveived(args.user)
+        viewModel.initScore(args.newGame)
 
         return binding.root
     }

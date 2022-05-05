@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.eesolutions.jeux.lovefinder.viewmodel.SigninViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/signinLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SigninFragment">
+    tools:context=".fragment.SigninFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/loginSigninTextView"
+        android:layout_width="282dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/text_rounding"
+        android:gravity="center"
+        android:hint="login"
+        android:text="@{model.user.login}"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/passwordSigninText"
+        android:layout_width="279dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorSigninTextView" />
+
+    <Button
+        android:id="@+id/signinButton"
+        android:layout_width="283dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/score_rounding"
+        android:text="Sign-in"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordSigninText" />
+
+    <TextView
+        android:id="@+id/errorSigninTextView"
+        android:layout_width="280dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:hint="error message"
+        android:text="@{model.error}"
+        android:textColor="#E91E63"
+        android:visibility="@{model.errorVisibility? @integer/visible : @integer/gone}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginSigninTextView"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

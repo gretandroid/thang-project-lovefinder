@@ -14,13 +14,14 @@
         android:gravity="center"
         android:hint="order"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#E91E63" />
+        android:textColor="#F44336" />
 
     <TextView
         android:id="@+id/loginTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1"
+        android:gravity="right|left"
         android:hint="login"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#E91E63" />

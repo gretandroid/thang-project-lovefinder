@@ -1,7 +1,6 @@
-package com.eesolutions.jeux.lovefinder
+package com.eesolutions.jeux.lovefinder.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,7 @@ class LandPageFragment : Fragment(), UserAdapter.UserAdapterListener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentLandPageBinding.inflate(inflater, container, false)
-
+        setHasOptionsMenu(true)  // enable menu for this fragment
         // init/get view model
         viewModel = ViewModelProvider(this).get(LandPageViewModel::class.java);
 
@@ -64,23 +63,30 @@ class LandPageFragment : Fragment(), UserAdapter.UserAdapterListener {
         }
         viewModel.isVisible.observe(this.viewLifecycleOwner) { visible ->
             if (visible) {
-                Log.d("App", "$visible")
-                Log.d("App-d", "${binding.landPageProgressBar?.visibility}")
+//                Log.d("App", "$visible")
+//                Log.d("App-d", "${binding.landPageProgressBar?.visibility}")
                 binding.landPageProgressBar?.visibility = View.VISIBLE;
-                Log.d("App-d", "${binding.landPageProgressBar?.visibility}")
+//                Log.d("App-d", "${binding.landPageProgressBar?.visibility}")
             } else {
-                Log.d("App", "$visible")
+//                Log.d("App", "$visible")
                 binding.landPageProgressBar?.visibility = View.GONE;
             }
+        }
+
+        // subcribe button
+        binding.subcribeButton.setOnClickListener {
+            Navigation
+                .findNavController(binding.root)
+                .navigate(LandPageFragmentDirections.actionLandPageFragmentToSignupFragment())
         }
 
         return binding.root;
     }
 
     override fun onClick(view: View?, user: User?) {
-//        Navigation
-//            .findNavController(binding.root)
-//            .navigate()
+        Navigation
+            .findNavController(binding.root)
+            .navigate(LandPageFragmentDirections.actionLandPageFragmentToSigninFragment(user!!))
     }
 
 }

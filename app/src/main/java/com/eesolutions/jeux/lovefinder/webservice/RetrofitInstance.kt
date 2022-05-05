@@ -3,7 +3,7 @@ package com.eesolutions.jeux.lovefinder.webservice
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val BASE_URL = "http://625d72d54c36c75357753172.mockapi.io/api/"
+private const val BASE_URL = "https://625d72d54c36c75357753172.mockapi.io/api/"
 object RetrofitInstance {
     private val retrofit by lazy {
         Retrofit.Builder()

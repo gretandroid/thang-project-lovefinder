@@ -5,19 +5,20 @@
     android:id="@+id/landPageLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6100BCD4"
+    android:background="#000506"
     android:padding="20dp"
-    tools:context=".LandPageFragment">
+    tools:context=".fragment.LandPageFragment">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="552dp"
         android:layout_height="75dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="cursive"
         android:gravity="center"
-        android:text="Welcome to Love Finder Game"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#E91EB3"
+        android:text="Love Adventure"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#E91E63"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +26,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="303dp"
-        android:layout_height="202dp"
+        android:layout_width="596dp"
+        android:layout_height="206dp"
         android:layout_marginTop="1dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +42,7 @@
         android:layout_width="304dp"
         android:layout_height="38dp"
         android:layout_marginTop="20dp"
-        android:background="#00D4C9"
+        android:background="@drawable/score_rounding"
         android:text="Subcribe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,8 +50,8 @@
 
     <TextView
         android:id="@+id/errorTextView"
-        android:layout_width="538dp"
-        android:layout_height="73dp"
+        android:layout_width="586dp"
+        android:layout_height="71dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:hint="Error Message"

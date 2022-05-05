@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
 import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
 import com.eesolutions.jeux.lovefinder.game.model.MatchObject
+import com.eesolutions.jeux.lovefinder.model.User
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -15,12 +16,17 @@ class MainGameViewModel : ViewModel() {
     private val _boyCharacter = MutableLiveData<BoyCharacter>()
     private val _girlCharaterList = MutableLiveData<MutableList<GirlCharater>>()
     private val _matchObject = MutableLiveData<MatchObject>()
-    private val _score = MutableLiveData<Int>()
 
     val boyCharacter : LiveData<BoyCharacter> = _boyCharacter
     val girlCharaterList : LiveData<MutableList<GirlCharater>> = _girlCharaterList
     val matchObject : LiveData<MatchObject> = _matchObject
-    val score : LiveData<Int> = _score
+
+    private val _user = MutableLiveData<User>()
+    val user : LiveData<User> = _user
+
+    fun onMessageReveived(user: User) {
+        _user.value = user
+    }
 
     var running = false
 
@@ -44,14 +50,15 @@ class MainGameViewModel : ViewModel() {
                 // check match
                 if (_matchObject.value!!.isFinish()) {
                     val matchedGirls = _boyCharacter.value!!.findMatch(_girlCharaterList.value!!)
-                    if (!matchedGirls?.isEmpty()) {
+                    if (!matchedGirls!!.isEmpty()) {
                         // start match
                         _matchObject.value!!.start()
                         _matchObject.value?.x = _boyCharacter.value!!.x
                         _matchObject.value?.y = _boyCharacter.value!!.y
                         // increase score
                         _boyCharacter.value?.increaseScore()
-                        _score.value = _boyCharacter.value!!.score
+                        _user.value!!.score = _boyCharacter.value!!.score
+                        _user.value = _user.value // for notification
 
                         // spawn new girl at the center of screen
                         // check if not enough girl => spawn
@@ -101,6 +108,23 @@ class MainGameViewModel : ViewModel() {
 
     fun initMatchObject(matchObject: MatchObject) {
         _matchObject.value = matchObject
+    }
+
+    fun initScore(newGame: Boolean) {
+        when(newGame) {
+            true ->
+            {
+                _user.value!!.score = 0
+            }
+            else -> {
+
+            }
+        }
+        _boyCharacter.value?.score = _user.value!!.score
+
+        // notify UI
+        _boyCharacter.value =  _boyCharacter.value
+        _user.value = _user.value
     }
 
 
