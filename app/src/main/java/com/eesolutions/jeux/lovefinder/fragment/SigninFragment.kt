@@ -29,13 +29,19 @@ class SigninFragment : Fragment() {
         viewModel.onMessageReveived(args.user)
         binding.signinButton.setOnClickListener {
 
-            // check match password
-            val password = binding.passwordSigninText.text.toString()
-            if (viewModel.checkPassword(password)) {
-                Navigation
+        // check match password
+        val password = binding.passwordSigninText.text.toString()
+        if (viewModel.checkPassword(password)) {
+            when(viewModel.user.value!!.score) {
+                0 -> Navigation
+                    .findNavController(binding.root)
+                    .navigate(SigninFragmentDirections.actionSigninFragmentToMainGameFragment(viewModel.user.value!!, true))
+                else -> Navigation
                     .findNavController(binding.root)
                     .navigate(SigninFragmentDirections.actionSigninFragmentToStartGameFragment(viewModel.user.value!!))
             }
+
+        }
 
         }
         return binding.root

@@ -8,69 +8,75 @@
             name="model"
             type="com.eesolutions.jeux.lovefinder.viewmodel.SignupViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/signupLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.SignupFragment" >
 
-    <TextView
-        android:id="@+id/loginSignupTextView"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/text_rounding"
-        android:gravity="center"
-        android:text="Login"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/signupLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#060606"
+        tools:context=".fragment.SignupFragment">
 
-    <TextView
-        android:id="@+id/passwordSignupTextView"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="88dp"
-        android:background="@drawable/text_rounding"
-        android:gravity="center"
-        android:text="Password"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintStart_toStartOf="@+id/loginSignupTextView"
-        app:layout_constraintTop_toBottomOf="@+id/loginSignupTextView" />
+        <TextView
+            android:id="@+id/loginSignupTextView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/score_rounding_med"
+            android:gravity="center"
+            android:text="Login"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/loginSignupText"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="48dp"
-        android:ems="10"
-        android:hint="login"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/loginSignupTextView"
-        app:layout_constraintStart_toEndOf="@+id/loginSignupTextView" />
+        <TextView
+            android:id="@+id/passwordSignupTextView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/score_rounding_med"
+            android:gravity="center"
+            android:text="Pass"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintStart_toStartOf="@+id/loginSignupTextView"
+            app:layout_constraintTop_toBottomOf="@+id/loginSignupTextView" />
 
-    <EditText
-        android:id="@+id/passwordSignupText"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
-        android:ems="10"
-        android:hint="password"
-        android:inputType="numberPassword"
-        app:layout_constraintBaseline_toBaselineOf="@+id/passwordSignupTextView"
-        app:layout_constraintStart_toStartOf="@+id/loginSignupText" />
+        <EditText
+            android:id="@+id/loginSignupText"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="48dp"
+            android:background="#FCFCFC"
+            android:ems="10"
+            android:hint="login"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/loginSignupTextView"
+            app:layout_constraintStart_toEndOf="@+id/loginSignupTextView" />
 
-    <Button
-        android:id="@+id/signupButton"
-        android:layout_width="455dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/score_rounding"
-        android:text="Sign-up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordSignupText" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/passwordSignupText"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:background="#F9F7F7"
+            android:ems="10"
+            android:hint="password in number"
+            android:inputType="numberPassword"
+            android:paddingLeft="20dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/passwordSignupTextView"
+            app:layout_constraintStart_toStartOf="@+id/loginSignupText" />
+
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="168dp"
+            android:background="@drawable/score_rounding_med"
+            android:text="Sign-up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.896"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

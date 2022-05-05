@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_landPageFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_landPageFragment_to_mainGameFragment"
+            app:destination="@id/mainGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/signinFragment"

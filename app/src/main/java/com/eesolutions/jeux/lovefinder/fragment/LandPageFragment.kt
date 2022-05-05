@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eesolutions.jeux.lovefinder.databinding.FragmentLandPageBinding
+import com.eesolutions.jeux.lovefinder.model.GUEST_USER
 import com.eesolutions.jeux.lovefinder.model.User
 import com.eesolutions.jeux.lovefinder.recyclerview.UserAdapter
 import com.eesolutions.jeux.lovefinder.viewmodel.LandPageViewModel
@@ -78,6 +79,16 @@ class LandPageFragment : Fragment(), UserAdapter.UserAdapterListener {
             Navigation
                 .findNavController(binding.root)
                 .navigate(LandPageFragmentDirections.actionLandPageFragmentToSignupFragment())
+        }
+
+        // guest button
+        binding.guestButton.setOnClickListener {
+            // reset score GUEST_USER
+            GUEST_USER.score = 0
+            Navigation
+                .findNavController(binding.root)
+                .navigate(LandPageFragmentDirections.actionLandPageFragmentToMainGameFragment(
+                    GUEST_USER, true))
         }
 
         return binding.root;

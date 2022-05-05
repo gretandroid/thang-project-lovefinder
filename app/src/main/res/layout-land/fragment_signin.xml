@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.eesolutions.jeux.lovefinder.viewmodel.SigninViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/signinLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#070707"
+        tools:context=".fragment.SigninFragment">
+
+        <TextView
+            android:id="@+id/loginSigninTextView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/score_rounding_big"
+            android:gravity="center"
+            android:hint="login"
+            android:text="@{model.user.login}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.499"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/passwordSigninText"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:hint="password in number"
+            android:inputType="numberPassword"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.499"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginSigninTextView" />
+
+        <Button
+            android:id="@+id/signinButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/score_rounding_med"
+            android:text="Sign-in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.499"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordSigninText" />
+
+        <TextView
+            android:id="@+id/errorSigninTextView"
+            android:layout_width="600dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:hint="error message"
+            android:text="@{model.error}"
+            android:textColor="#E91E63"
+            android:visibility="@{model.errorVisibility? @integer/visible : @integer/gone}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginSigninTextView"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

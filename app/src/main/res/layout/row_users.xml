@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#5A2196F3"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/orderTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="fill_horizontal|left"
         android:hint="order"
+        android:paddingLeft="20dp"
+        android:textAlignment="gravity"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#F44336" />
 
@@ -21,8 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="right|left"
         android:hint="login"
+        android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#E91E63" />
 </LinearLayout>

@@ -8,12 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.eesolutions.jeux.lovefinder.databinding.FragmentMainGameBinding
 import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
 import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
 import com.eesolutions.jeux.lovefinder.game.model.MatchObject
 import com.eesolutions.jeux.lovefinder.viewmodel.MainGameViewModel
 import com.eesolutions.jeux.lovefinder.viewmodel.StartGameViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainGameFragment : Fragment() {
     private lateinit var binding: FragmentMainGameBinding
@@ -154,13 +159,31 @@ class MainGameFragment : Fragment() {
 //            Log.d("App", "Event Click on listener [x,y] = [${motionEvent.x},${motionEvent.y}]")
 
             when (motionEvent.action) {
-                MotionEvent.ACTION_DOWN ->
+                MotionEvent.ACTION_DOWN -> {
+                    binding.ripple.animate()
+                        .x(motionEvent.x.toFloat() - binding.ripple.width/2)
+                        .y(motionEvent.y.toFloat() - binding.ripple.height/2)
+                        .setDuration(10).start()
+                    binding.ripple.startRippleAnimation()
                     viewModel.changeDirectionOnCharacter(motionEvent.x.toInt(), motionEvent.y.toInt())
+                }
+                MotionEvent.ACTION_UP -> {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(500)
+                        binding.ripple.stopRippleAnimation()
+                    }
+                    true
+                }
                 else -> false
             }
         }
 
         // landPageImageView
+        binding.toLandPageImageView.setOnClickListener {
+            Navigation
+                .findNavController(binding.root)
+                .navigate(MainGameFragmentDirections.actionMainGameFragmentToLandPageFragment())
+        }
 
         // init variable model for data binding
         binding.model = viewModel

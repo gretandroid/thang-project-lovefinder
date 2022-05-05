@@ -8,9 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.eesolutions.jeux.lovefinder.game.model.BoyCharacter
 import com.eesolutions.jeux.lovefinder.game.model.GirlCharater
 import com.eesolutions.jeux.lovefinder.game.model.MatchObject
+import com.eesolutions.jeux.lovefinder.model.GUEST_USER
 import com.eesolutions.jeux.lovefinder.model.User
+import com.eesolutions.jeux.lovefinder.webservice.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainGameViewModel : ViewModel() {
     private val _boyCharacter = MutableLiveData<BoyCharacter>()
@@ -60,6 +65,11 @@ class MainGameViewModel : ViewModel() {
                         _user.value!!.score = _boyCharacter.value!!.score
                         _user.value = _user.value // for notification
 
+                        // persist score
+                        if (_user.value !== GUEST_USER) {
+                            saveUser(_user.value!!)
+                        }
+
                         // spawn new girl at the center of screen
                         // check if not enough girl => spawn
                         matchedGirls.forEach {
@@ -85,6 +95,19 @@ class MainGameViewModel : ViewModel() {
 //                Log.d("App", "[x,y] = [${_boyCharacter.value?.x},${_boyCharacter.value?.y}]")
                 startTime = System.nanoTime()
 
+            }
+        }
+    }
+
+    private fun saveUser(user : User) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                RetrofitInstance.userDao.update(user.id, user)
+            } catch (e: Exception) {
+                Log.d(
+                    "App",
+                    "Error while saving score of user ${user.login} : ${e.message}"
+                )
             }
         }
     }

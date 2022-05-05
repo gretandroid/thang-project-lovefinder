@@ -1,5 +1,7 @@
 package com.eesolutions.jeux.lovefinder.game.model
 
+const val CORNER_RADIUS = 300 // dp
+
 abstract class Charater(
     val surfaceWidth: Int,
     val surfaceHeight: Int,
@@ -98,7 +100,19 @@ abstract class Charater(
             movingVectorY = -movingVectorY
         }
 
-        // rowUsing
+        // avoid corner which reserved to HOME and SCORE
+        // RIGHT_BOTTOM
+        if (x >  surfaceWidth - objectWidth - CORNER_RADIUS && y > surfaceHeight - objectHeight - CORNER_RADIUS) {
+            x = surfaceWidth - objectWidth - CORNER_RADIUS
+            y = surfaceHeight - objectHeight - CORNER_RADIUS
+            movingVectorX = -movingVectorX
+        }
+        // LEFT_BOTTOM
+        if (x < CORNER_RADIUS && y > surfaceHeight - objectHeight - CORNER_RADIUS) {
+            x = CORNER_RADIUS
+            y = surfaceHeight - objectHeight - CORNER_RADIUS
+            movingVectorY = -movingVectorY
+        }
 
         // rowUsing
         if (movingVectorX > 0) {
