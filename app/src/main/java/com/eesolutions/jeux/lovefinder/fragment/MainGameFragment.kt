@@ -160,6 +160,8 @@ class MainGameFragment : Fragment() {
             }
         }
 
+        // landPageImageView
+
         // init variable model for data binding
         binding.model = viewModel
         binding.lifecycleOwner = this
