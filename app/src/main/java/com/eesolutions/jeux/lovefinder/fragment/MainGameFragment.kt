@@ -102,7 +102,8 @@ class MainGameFragment : Fragment() {
             with(binding) {
                 girlList.forEach {
                     currentGirlImageView = girlImageViews[girlList.indexOf(it)]
-                    if (currentGirlImageView !== null) {
+                    if (it.isVisible()) {
+                        currentGirlImageView.visibility = View.VISIBLE
                         currentGirlImageView.setImageResource(it.getCurrentImage())
                         currentGirlImageView.animate()
                             .x(it.x.toFloat())
@@ -118,8 +119,9 @@ class MainGameFragment : Fragment() {
                         it.checkPoint();
                     }
                     else {
-
+                        currentGirlImageView.visibility = View.GONE
                     }
+
                 }
             }
         }
@@ -179,11 +181,11 @@ class MainGameFragment : Fragment() {
         }
 
         // landPageImageView
-        binding.toLandPageImageView.setOnClickListener {
-            Navigation
-                .findNavController(binding.root)
-                .navigate(MainGameFragmentDirections.actionMainGameFragmentToLandPageFragment())
-        }
+//        binding.toLandPageImageView.setOnClickListener {
+//            Navigation
+//                .findNavController(binding.root)
+//                .navigate(MainGameFragmentDirections.actionMainGameFragmentToLandPageFragment())
+//        }
 
         // init variable model for data binding
         binding.model = viewModel

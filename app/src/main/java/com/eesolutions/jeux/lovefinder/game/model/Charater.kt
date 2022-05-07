@@ -1,6 +1,9 @@
 package com.eesolutions.jeux.lovefinder.game.model
 
-const val CORNER_RADIUS = 300 // dp
+import kotlin.math.abs
+
+const val CORNER_RADIUS = 250 // dp
+const val VELOCITY_NORMAL = 0.1f
 
 abstract class Charater(
     val surfaceWidth: Int,
@@ -33,9 +36,10 @@ abstract class Charater(
     private var currentRow = ROW_LEFT_TO_RIGHT
     private var currentCol = 0
 
+    protected var visibility = true
 
     // Velocity of character (pixel/millisecond)
-    val VELOCITY = 0.1f
+    var VELOCITY = VELOCITY_NORMAL
 
 //    var movingVectorX = 10
 //    var movingVectorY = 5
@@ -102,17 +106,24 @@ abstract class Charater(
 
         // avoid corner which reserved to HOME and SCORE
         // RIGHT_BOTTOM
-        if (x >  surfaceWidth - objectWidth - CORNER_RADIUS && y > surfaceHeight - objectHeight - CORNER_RADIUS) {
-            x = surfaceWidth - objectWidth - CORNER_RADIUS
-            y = surfaceHeight - objectHeight - CORNER_RADIUS
-            movingVectorX = -movingVectorX
+        if (x >  surfaceWidth - objectWidth - CORNER_RADIUS && y > surfaceHeight - objectHeight - CORNER_RADIUS ) {
+
+            if (abs(movingVectorX) >= abs (movingVectorY)) {
+                x = surfaceWidth - objectWidth - CORNER_RADIUS
+                movingVectorX = -movingVectorX
+            }
+            else {
+                y = surfaceHeight - objectHeight - CORNER_RADIUS
+                movingVectorY = -movingVectorY
+            }
         }
+
         // LEFT_BOTTOM
-        if (x < CORNER_RADIUS && y > surfaceHeight - objectHeight - CORNER_RADIUS) {
-            x = CORNER_RADIUS
-            y = surfaceHeight - objectHeight - CORNER_RADIUS
-            movingVectorY = -movingVectorY
-        }
+//        if (x < CORNER_RADIUS && y > surfaceHeight - objectHeight - CORNER_RADIUS) {
+//            x = CORNER_RADIUS
+//            y = surfaceHeight - objectHeight - CORNER_RADIUS
+//            movingVectorY = -movingVectorY
+//        }
 
         // rowUsing
         if (movingVectorX > 0) {

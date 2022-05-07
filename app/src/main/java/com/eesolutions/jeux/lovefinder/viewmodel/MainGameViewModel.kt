@@ -73,10 +73,11 @@ class MainGameViewModel : ViewModel() {
                         // spawn new girl at the center of screen
                         // check if not enough girl => spawn
                         matchedGirls.forEach {
-                            it.x = it.surfaceWidth/2
-                            it.y = it.surfaceHeight/2
-                            it.movingVectorX = (-15..10).random()
-                            it.movingVectorY = (-12..20).random()
+                            it.goHome()
+//                            it.x = it.surfaceWidth/2
+//                            it.y = it.surfaceHeight/2
+//                            it.movingVectorX = (-15..10).random()
+//                            it.movingVectorY = (-12..20).random()
                         }
 
                         _girlCharaterList.value = _girlCharaterList.value
